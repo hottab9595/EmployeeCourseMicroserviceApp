@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CourseMicroservice.Services.Models;
+using EmployeeMicroservice.Services.Models;
 
-namespace CourseMicroservice.Services.Interfaces
+namespace EmployeeMicroservice.Services.Interfaces
 {
     public interface IMembershipService<T> : ICoreService where T : BaseModel
     {
         Task<IEnumerable<T>> GetAsync();
         Task<T> GetAsync(int id);
-        Task<T> AddNewAsync(T t);
+        Task<T> AddNewAsync(int employeeId, int courseId);
         Task DeleteAsync(int id);
     }
 }

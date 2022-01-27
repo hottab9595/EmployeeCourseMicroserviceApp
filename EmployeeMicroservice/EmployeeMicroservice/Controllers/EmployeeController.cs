@@ -31,7 +31,7 @@ namespace EmployeeMicroservice.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewEmployee(Employee employee)
         {
-            return Ok(employee);
+            return Ok(await _es.AddNewAsync(employee));
         }
 
         [HttpPut("{id:int}")]

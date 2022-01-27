@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using CourseMicroservice.Services.Interfaces;
-using CourseMicroservice.Services.Models;
+﻿using EmployeeMicroservice.Services.Interfaces;
+using EmployeeMicroservice.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-
-namespace CourseMicroservice.Controllers
+namespace EmployeeMicroservice.Controllers
 {
     [ApiController]
     [Route("api/Courses")]
@@ -12,7 +11,7 @@ namespace CourseMicroservice.Controllers
     {
         public CourseController(ICourseService<Course> cs)
         {
-            _cs = cs; 
+            _cs = cs;
         }
 
         private readonly ICourseService<Course> _cs;

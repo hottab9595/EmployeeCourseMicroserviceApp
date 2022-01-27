@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using CourseMicroservice.Db.Interfaces;
-using CourseMicroservice.Services.Interfaces;
+using EmployeeMicroservice.Db.Interfaces;
+using EmployeeMicroservice.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CourseMicroservice.Services.Models;
+using EmployeeMicroservice.Services.Helpers;
+using EmployeeMicroservice.Services.Models;
 using Microsoft.EntityFrameworkCore;
-using BaseModel = CourseMicroservice.Services.Models.BaseModel;
-using DbMembership = CourseMicroservice.Db.Model.CourseEmployee;
+using BaseModel = EmployeeMicroservice.Services.Models.BaseModel;
+using DbMembership = EmployeeMicroservice.Db.Models.CourseEmployee;
 
-namespace CourseMicroservice.Services.Core
+namespace EmployeeMicroservice.Services.Core
 {
     public class MembershipService<T> : CoreService<T>, IMembershipService<Membership> where T : BaseModel
     {
@@ -25,14 +26,14 @@ namespace CourseMicroservice.Services.Core
 
         public async Task<Membership> GetAsync(int id) => _mapper.Map<Membership>(await _db.CourseEmployees.FindBy(x => x.Id == id).FirstOrDefaultAsync());
 
-        public async Task<Membership> AddNewAsync(Membership membership)
+        public async Task<Membership> AddNewAsync(int employeeId, int courseId)
         {
-            await _utils.IsMembershipNotExists(membership);
+            await _utils.IsMembershipNotExists(employeeId, courseId);
 
             DbMembership dbMembership = new DbMembership
             {
-                CourseId = membership.Course.Id,
-                EmployeeId = membership.Employee.Id
+                CourseId = courseId,
+                EmployeeId = employeeId
             };
 
             _db.CourseEmployees.Add(dbMembership);

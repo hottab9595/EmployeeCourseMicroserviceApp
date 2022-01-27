@@ -1,7 +1,12 @@
-﻿namespace CourseMicroservice.Services.Models
+﻿namespace EmployeeMicroservice.Services.Models
 {
     public class Membership : BaseModel
     {
+        private Membership() : base()
+        {
+            
+        }
+
         public Membership(int id) : base(id)
         {
         }

@@ -1,7 +1,6 @@
-﻿
-using CourseMicroservice.Services.Models;
+﻿using EmployeeMicroservice.Services.Models;
 
-namespace CourseMicroservice.Services.Interfaces
+namespace EmployeeMicroservice.Services.Interfaces
 {
     public interface ICourseService<T> : ICoreService, ICrud<T> where T : BaseModel
     {

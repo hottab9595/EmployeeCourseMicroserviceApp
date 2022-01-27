@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CourseMicroservice.Db.Model
+namespace EmployeeMicroservice.Db.Models
 {
     public class CourseEmployee : BaseModel
     {

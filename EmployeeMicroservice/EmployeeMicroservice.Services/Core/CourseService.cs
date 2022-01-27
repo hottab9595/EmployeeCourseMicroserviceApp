@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
-using CourseMicroservice.Db.Interfaces;
-using CourseMicroservice.Services.Interfaces;
+using EmployeeMicroservice.Db.Interfaces;
+using EmployeeMicroservice.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DbModel = CourseMicroservice.Db.Model;
-using CourseMicroservice.Services.Models;
+using EmployeeMicroservice.Services.Helpers;
+using DbModel = EmployeeMicroservice.Db.Models;
+using EmployeeMicroservice.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseMicroservice.Services.Core
+namespace EmployeeMicroservice.Services.Core
 {
     public class CourseService<T> : CoreService<T>, ICourseService<Course> where T : BaseModel
     {

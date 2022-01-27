@@ -2,6 +2,11 @@
 {
     public class Department : BaseModel
     {
+        private Department() : base()
+        {
+            
+        }
+
         public Department(int id) : base(id)
         {
         }

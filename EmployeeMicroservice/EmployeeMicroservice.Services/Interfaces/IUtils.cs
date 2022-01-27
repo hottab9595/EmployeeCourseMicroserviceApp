@@ -2,6 +2,8 @@
 using EmployeeMicroservice.Services.Models;
 using DbEmployee = EmployeeMicroservice.Db.Models.Employee;
 using DbDepartment = EmployeeMicroservice.Db.Models.Department;
+using DbCourse = EmployeeMicroservice.Db.Models.Course;
+using DbMembership = EmployeeMicroservice.Db.Models.CourseEmployee;
 
 namespace EmployeeMicroservice.Services.Interfaces
 {
@@ -21,5 +23,17 @@ namespace EmployeeMicroservice.Services.Interfaces
         public Task<bool> IsDepartmentNotExistsAsync(int id);
 
         public Task<bool> IsDepartmentNotExistsAsync(Department department);
+
+        public Task<(bool isExists, DbCourse course)> IsCourseExistsAsync(int id);
+
+        public Task<(bool isExists, DbCourse course)> IsCourseExistsAsync(Course course);
+        public Task<bool> IsCourseNotExistsAsync(int id);
+
+        public Task<bool> IsCourseNotExistsAsync(Course course);
+
+        public Task<(bool isExists, DbMembership membership)> IsMembershipExists(int id);
+        public Task<(bool isExists, DbMembership membership)> IsMembershipExists(Membership membership);
+        public Task<bool> IsMembershipNotExists(int id);
+        public Task<bool> IsMembershipNotExists(int employeeId, int courseId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeMicroservice.Services.Models;
+using DbModel = EmployeeMicroservice.Db.Models;
 
 namespace EmployeeMicroservice.Services
 {
@@ -7,11 +8,17 @@ namespace EmployeeMicroservice.Services
     {
         public MappingProfile()
         {
-            CreateMap<Employee, Db.Models.Employee>();
-            CreateMap<Db.Models.Employee, Employee>();
+            CreateMap<Employee, DbModel.Employee>();
+            CreateMap<DbModel.Employee, Employee>();
 
-            CreateMap<Department, Db.Models.Department>();
-            CreateMap<Db.Models.Department, Department>();
+            CreateMap<Department, DbModel.Department>();
+            CreateMap<DbModel.Department, Department>();
+
+            CreateMap<Course, DbModel.Course>();
+            CreateMap<DbModel.Course, Course>();
+
+            CreateMap<Membership, DbModel.CourseEmployee>();
+            CreateMap<DbModel.CourseEmployee, Membership>();
         }
     }
 }

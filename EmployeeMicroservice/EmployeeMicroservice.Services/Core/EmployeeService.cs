@@ -3,7 +3,9 @@ using EmployeeMicroservice.Db.Interfaces;
 using EmployeeMicroservice.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EmployeeMicroservice.Services.Helpers;
 using Microsoft.EntityFrameworkCore;
+using DbModel = EmployeeMicroservice.Db.Models;
 using EmployeeMicroservice.Services.Models;
 
 namespace EmployeeMicroservice.Services.Core
@@ -29,14 +31,14 @@ namespace EmployeeMicroservice.Services.Core
         {
             await _utils.IsEmployeeNotExistsAsync(employee);
 
-            Db.Models.Employee employeeDb = _db.Employees.Add(_mapper.Map<Db.Models.Employee>(employee));
+            DbModel.Employee employeeDb = _db.Employees.Add(_mapper.Map<DbModel.Employee>(employee));
             await _db.SaveAsync();
-            return _mapper.Map<Employee>(employeeDb);
+            return await GetAsync(employeeDb.Id);
         }
 
         public async Task<Employee> UpdateAsync(int id, Employee employee)
         {
-            Db.Models.Employee employeeDb = (await _utils.IsEmployeeExistsAsync(id)).employee;
+            DbModel.Employee employeeDb = (await _utils.IsEmployeeExistsAsync(id)).employee;
 
             employeeDb.Surname = employee.Surname;
             employeeDb.Name = employee.Name;

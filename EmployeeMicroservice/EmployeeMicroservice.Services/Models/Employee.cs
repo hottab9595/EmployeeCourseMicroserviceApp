@@ -2,6 +2,11 @@
 {
     public class Employee : BaseModel
     {
+        private Employee() : base()
+        {
+            
+        }
+
         public Employee(int id) : base(id)
         {
         }

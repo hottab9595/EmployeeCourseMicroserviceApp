@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeMicroservice.Db.Models
@@ -21,5 +22,6 @@ namespace EmployeeMicroservice.Db.Models
         [Column(name: "DepartmentID")]
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
+        public virtual ICollection<CourseEmployee> CourseEmployees { get; set; }
     }
 }

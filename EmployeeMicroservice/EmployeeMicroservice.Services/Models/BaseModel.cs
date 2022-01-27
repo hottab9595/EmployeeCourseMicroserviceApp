@@ -7,6 +7,11 @@
             Id = id;
         }
 
+        protected BaseModel()
+        {
+            
+        }
+
         public int Id { get; }
     }
 }
