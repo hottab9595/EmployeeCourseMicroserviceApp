@@ -23,7 +23,7 @@ namespace ApiGateway
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($@"ReRotes\EmployeeMicroservice\configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json", false, true)
+                        .AddJsonFile($@"ReRoutes\EmployeeMicroservice\configuration.{hostingContext.HostingEnvironment.EnvironmentName}.json", false, true)
                         .AddEnvironmentVariables();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
