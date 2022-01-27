@@ -1,0 +1,30 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Employees",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 53013
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Employees",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Employees/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 53013
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Employees/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ]
+    }
+  ],
+  "GlobalConfiguration": {
+  }
+}
