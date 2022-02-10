@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeMicroservice.Db.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220125210434_Initial")]
+    [Migration("20220127201254_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,91 @@ namespace EmployeeMicroservice.Db.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EmployeeMicroservice.Db.Model.Department", b =>
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Signature")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Duration = 6,
+                            IsDeleted = false,
+                            Signature = ".NET"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Duration = 6,
+                            IsDeleted = false,
+                            Signature = "Java"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Duration = 1,
+                            IsDeleted = false,
+                            Signature = "SQL"
+                        });
+                });
+
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.CourseEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("CourseEmployees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CourseId = 1,
+                            EmployeeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CourseId = 1,
+                            EmployeeId = 2
+                        });
+                });
+
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +153,7 @@ namespace EmployeeMicroservice.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EmployeeMicroservice.Db.Model.Employee", b =>
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,18 +218,37 @@ namespace EmployeeMicroservice.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EmployeeMicroservice.Db.Model.Department", b =>
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.CourseEmployee", b =>
                 {
-                    b.HasOne("EmployeeMicroservice.Db.Model.Department", "Parent")
+                    b.HasOne("EmployeeMicroservice.Db.Models.Course", "Course")
+                        .WithMany("CourseEmployees")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeMicroservice.Db.Models.Employee", "Employee")
+                        .WithMany("CourseEmployees")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Department", b =>
+                {
+                    b.HasOne("EmployeeMicroservice.Db.Models.Department", "Parent")
                         .WithMany("Departments")
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("EmployeeMicroservice.Db.Model.Employee", b =>
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Employee", b =>
                 {
-                    b.HasOne("EmployeeMicroservice.Db.Model.Department", "Department")
+                    b.HasOne("EmployeeMicroservice.Db.Models.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -154,11 +257,21 @@ namespace EmployeeMicroservice.Db.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("EmployeeMicroservice.Db.Model.Department", b =>
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Course", b =>
+                {
+                    b.Navigation("CourseEmployees");
+                });
+
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Department", b =>
                 {
                     b.Navigation("Departments");
 
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("EmployeeMicroservice.Db.Models.Employee", b =>
+                {
+                    b.Navigation("CourseEmployees");
                 });
 #pragma warning restore 612, 618
         }

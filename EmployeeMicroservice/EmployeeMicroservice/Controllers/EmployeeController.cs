@@ -3,7 +3,7 @@ using EmployeeMicroservice.Services.Interfaces;
 using EmployeeMicroservice.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeeMicroservice.Controllers
+namespace EmployeeMicroservice.Api.Controllers
 {
     [ApiController]
     [Route("api/Employees")]

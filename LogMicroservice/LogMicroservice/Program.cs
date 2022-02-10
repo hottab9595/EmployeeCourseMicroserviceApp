@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace EmployeeMicroservice.Api
+namespace LogMicroservice.Api
 {
     public class Program
     {

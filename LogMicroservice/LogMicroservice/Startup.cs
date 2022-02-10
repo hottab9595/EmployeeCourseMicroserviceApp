@@ -1,11 +1,10 @@
 using AutoMapper;
-using Common.Middleware;
 using EmployeeMicroservice.Db;
-using EmployeeMicroservice.Db.Core;
-using EmployeeMicroservice.Db.Interfaces;
-using EmployeeMicroservice.Services.Helpers;
-using EmployeeMicroservice.Services.Interfaces;
-using EmployeeMicroservice.Services.Models;
+using LogMicroservice.Db.Core;
+using LogMicroservice.Db.Interfaces;
+using LogMicroservice.Sevices;
+using LogMicroservice.Sevices.Core;
+using LogMicroservice.Sevices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace EmployeeMicroservice.Api
+namespace LogMicroservice.Api
 {
     public class Startup
     {
@@ -33,18 +32,12 @@ namespace EmployeeMicroservice.Api
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUnitOfWork, ContextUnitOfWork>();
 
-            services.Scan(scan => scan
-                .FromAssemblyOf<ICrud<BaseModel>>()
-                .AddClasses(classes => classes.AssignableTo<ICoreService>())
-                .AsImplementedInterfaces()
-                .WithScopedLifetime()
-            );
 
-            services.AddTransient<IUtils, Utils>();
+            services.AddScoped<ILogService, LogService>();
 
             services.AddSingleton(new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new Services.MappingProfile());
+                mc.AddProfile(new MappingProfile());
             }).CreateMapper());
         }
 
@@ -59,7 +52,6 @@ namespace EmployeeMicroservice.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthorization();
 

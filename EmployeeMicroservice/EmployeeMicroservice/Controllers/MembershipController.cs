@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using EmployeeMicroservice.Services.Interfaces;
 using EmployeeMicroservice.Services.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace EmployeeMicroservice.Controllers
+namespace EmployeeMicroservice.Api.Controllers
 {
     [ApiController]
     [Route("api/Memberships")]

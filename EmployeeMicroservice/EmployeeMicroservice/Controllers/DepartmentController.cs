@@ -1,9 +1,9 @@
-﻿using EmployeeMicroservice.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using EmployeeMicroservice.Services.Interfaces;
 using EmployeeMicroservice.Services.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeeMicroservice.Controllers
+namespace EmployeeMicroservice.Api.Controllers
 {
     [ApiController]
     [Route("api/Departments")]
