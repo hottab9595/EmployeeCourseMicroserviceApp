@@ -27,6 +27,8 @@ namespace AuthorizationMicroservice.Api
         {
             services.AddControllers();
 
+            services.AddSwaggerGen();
+
             services.AddTransient<IContext, Context>();
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
@@ -46,6 +48,8 @@ namespace AuthorizationMicroservice.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

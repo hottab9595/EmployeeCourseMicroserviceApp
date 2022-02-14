@@ -14,8 +14,7 @@ namespace AuthorizationMicroservice.Services.Core
         }
 
         private IMapper mapper;
-
-
+        
         public IEnumerable<UserModel> GetAllUserModel()
         {
             return mapper.Map<IEnumerable<UserModel>>(db.Users.GetAll());
