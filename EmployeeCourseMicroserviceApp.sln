@@ -33,6 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogMicroservice.Sevices", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthorizationMicroservice", "AuthorizationMicroservice", "{41C7F671-537A-4A73-8DB8-697EB45B4020}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizationMicroservice.Api", "AuthorizationMicroservice\AuthorizationMicroservice\AuthorizationMicroservice.Api.csproj", "{7B821C82-A6AC-4F63-9B90-F903A634F8FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizationMicroservice.Db", "AuthorizationMicroservice\AuthorizationMicroservice.Db\AuthorizationMicroservice.Db.csproj", "{BB69B3D7-4119-472F-9346-B93FFD1FC3B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationMicroservice.Services", "AuthorizationMicroservice\AuthorizationMicroservice.Services\AuthorizationMicroservice.Services.csproj", "{B48D508C-5F9E-4923-AA08-070445EC030E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B006FC8C-BC24-4B48-91A9-1D0769EF6E9A}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet packages install comands.txt = NuGet packages install comands.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +86,18 @@ Global
 		{B4BA8370-8166-49D8-AA85-D3FB3109DE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4BA8370-8166-49D8-AA85-D3FB3109DE1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4BA8370-8166-49D8-AA85-D3FB3109DE1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B821C82-A6AC-4F63-9B90-F903A634F8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B821C82-A6AC-4F63-9B90-F903A634F8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B821C82-A6AC-4F63-9B90-F903A634F8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B821C82-A6AC-4F63-9B90-F903A634F8FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB69B3D7-4119-472F-9346-B93FFD1FC3B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB69B3D7-4119-472F-9346-B93FFD1FC3B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB69B3D7-4119-472F-9346-B93FFD1FC3B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB69B3D7-4119-472F-9346-B93FFD1FC3B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48D508C-5F9E-4923-AA08-070445EC030E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48D508C-5F9E-4923-AA08-070445EC030E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48D508C-5F9E-4923-AA08-070445EC030E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48D508C-5F9E-4923-AA08-070445EC030E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +112,9 @@ Global
 		{52A33649-5ADE-4141-8033-E1FCB96839A8} = {575755DF-EE6A-4074-BB35-39A4C10E6E04}
 		{A182E48D-A6F8-4EFA-A887-5308EE46637F} = {E36C48EC-B4B9-4623-AE65-B875601D7510}
 		{B4BA8370-8166-49D8-AA85-D3FB3109DE1F} = {E36C48EC-B4B9-4623-AE65-B875601D7510}
+		{7B821C82-A6AC-4F63-9B90-F903A634F8FE} = {41C7F671-537A-4A73-8DB8-697EB45B4020}
+		{BB69B3D7-4119-472F-9346-B93FFD1FC3B9} = {41C7F671-537A-4A73-8DB8-697EB45B4020}
+		{B48D508C-5F9E-4923-AA08-070445EC030E} = {41C7F671-537A-4A73-8DB8-697EB45B4020}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26DBCCB6-83F5-4027-B14B-04C8B1409DBC}

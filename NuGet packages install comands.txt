@@ -1,0 +1,23 @@
+-------------------------------DB-----------------------------------------------
+
+Install-Package Microsoft.EntityFrameworkCore -Version 5.0.11
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 5.0.11
+Install-Package Microsoft.EntityFrameworkCore.Proxies -Version 5.0.11
+Install-Package Microsoft.EntityFrameworkCore.Relational.Design -Version 1.1.6
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 5.0.11
+Install-Package Microsoft.EntityFrameworkCore.SqlServer.Design -Version 1.1.6
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 5.0.11
+
+-------------------------------API-----------------------------------------------
+
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 5.0.11
+Install-Package Scrutor -Version 3.3.0
+
+-------------------------------SERVICES-----------------------------------------------
+
+Install-Package AutoMapper -Version 11.0.0
+Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection -Version 11.0.0
+
+-------------------------------GATEWAY-----------------------------------------------
+
+Install-Package Ocelot -Version 16.0.1

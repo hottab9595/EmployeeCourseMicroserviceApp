@@ -31,10 +31,6 @@ namespace EmployeeMicroservice.Db
                 .Property(u => u.Message)
                 .HasComputedColumnSql("CAST([CurrentDateTime] AS nvarchar(40)) + '_' + [IpAddress] + '_' + CAST([UserId] AS nvarchar(50)) + '_' + [Operation]");
 
-            //modelBuilder.Entity<Log>()
-            //    .Property(u => u.CurrentServerDateTime)
-            //    .HasComputedColumnSql("GETDATE()");
-
             modelBuilder.Entity<Log>()
                 .Property(u => u.CurrentServerDateTime)
                 .HasDefaultValueSql("getdate()");
