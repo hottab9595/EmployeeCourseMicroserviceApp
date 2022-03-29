@@ -1,36 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using AuthorizationMicroservice.Db.Interfaces;
+using AuthorizationMicroservice.Db.Models;
 using AuthorizationMicroservice.Services.Interfaces;
-using AuthorizationMicroservice.Services.Models;
+using AuthorizationMicroservice.Services.Models.RabbitMQ;
+using AuthorizationMicroservice.Services.Models.Service;
 using AutoMapper;
+using Common.RabbitMQ.Interfaces;
 
 namespace AuthorizationMicroservice.Services.Core
 {
     public class AuthorizationService : BaseService, IAuthorizationService
     {
-        public AuthorizationService(IUnitOfWork db, IMapper mapper) : base(db)
+        public AuthorizationService(IUnitOfWork db, IMapper mapper, IRabbitMqSender<RabbitMqAuthorizePublishModel> rabbitMqSender) : base(db)
         {
             this.mapper = mapper;
+            this.rabbitMqSender = rabbitMqSender;
         }
 
         private IMapper mapper;
-        
-        public IEnumerable<UserModel> GetAllUserModel()
+        private IRabbitMqSender<RabbitMqAuthorizePublishModel> rabbitMqSender;
+
+
+        public async Task<UserModel> RegisterNewUserAsync(UserModel userModel)
         {
-            return mapper.Map<IEnumerable<UserModel>>(db.Users.GetAll());
+            User newUser = mapper.Map<User>(userModel);
+            db.Users.Add(newUser);
+
+            await db.SaveAsync();
+
+            return mapper.Map<UserModel>(db.Users.Get(newUser.Id));
         }
 
-        public IEnumerable<RoleModel> GetAllRoleModel()
+        public UserModel Authorize(UserModel userModel)
         {
-            return mapper.Map<IEnumerable<RoleModel>>(db.Roles.GetAll());
+            RabbitMqAuthorizePublishModel authorizePublishModel = new RabbitMqAuthorizePublishModel
+            {
+                Login = userModel.Login
+            };
+
+            for (int i = 0; i < 3; i++)
+            {
+                Thread.Sleep(1000);
+                rabbitMqSender.SendMessage(authorizePublishModel);
+            }
+
+            return mapper.Map<UserModel>(db.Users.FindBy(x => x.Login == userModel.Login && x.Password == userModel.Password)
+                .FirstOrDefault());
         }
 
-        public IEnumerable<UserRoleModel> GetAllUserRoleModel()
-        {
-            return mapper.Map<IEnumerable<UserRoleModel>>(db.UserRoles.GetAll());
-        }
-
-        public void Authorize(string login, string password)
+        public void RefreshToken()
         {
             throw new System.NotImplementedException();
         }

@@ -19,7 +19,7 @@ namespace AuthorizationMicroservice.Db.Core
             return _dbSet.AsQueryable();
         }
 
-        public T Get(int id)
+        public T Get(Guid id)
         {
             return _dbSet.Find(id);
         }
@@ -36,7 +36,7 @@ namespace AuthorizationMicroservice.Db.Core
             return entity;
         }
 
-        public T Update(int id)
+        public T Update(Guid id)
         {
             T item = Get(id);
             if (item != null)
@@ -62,7 +62,7 @@ namespace AuthorizationMicroservice.Db.Core
             _dbSet.Remove(entity);
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             T item = Get(id);
             if (item != null)

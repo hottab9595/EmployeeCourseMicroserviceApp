@@ -3,7 +3,12 @@ using AuthorizationMicroservice.Db.Core;
 using AuthorizationMicroservice.Db.Interfaces;
 using AuthorizationMicroservice.Services.Core;
 using AuthorizationMicroservice.Services.Interfaces;
+using AuthorizationMicroservice.Services.Models.RabbitMQ;
 using AutoMapper;
+using Common.RabbitMQ.Core.Fanout.Consumer;
+using Common.RabbitMQ.Core.Fanout.Publishing;
+using Common.RabbitMQ.Interfaces;
+using Common.RabbitMQ.Models.Fanout;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,11 +38,16 @@ namespace AuthorizationMicroservice.Api
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUnitOfWork, ContextUnitOfWork>();
-
+            
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+
+            services.AddHostedService<RabbitMqFanoutConsumer>();
+            services.Configure<RabbitMqFanoutConfigurationModel>(Configuration.GetSection("RabbitMq"));
+            services.AddSingleton<IRabbitMqSender<RabbitMqAuthorizePublishModel>, RabbitMqFanoutSender<RabbitMqAuthorizePublishModel>>();
 
             services.AddSingleton(new MapperConfiguration(mc =>
             {
+                mc.AddProfile(new MappingProfile());
                 mc.AddProfile(new Services.MappingProfile());
             }).CreateMapper());
         }

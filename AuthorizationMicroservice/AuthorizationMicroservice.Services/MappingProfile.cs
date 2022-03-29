@@ -1,5 +1,6 @@
 ﻿using AuthorizationMicroservice.Db.Models;
 using AuthorizationMicroservice.Services.Models;
+using AuthorizationMicroservice.Services.Models.Service;
 using AutoMapper;
 
 namespace AuthorizationMicroservice.Services

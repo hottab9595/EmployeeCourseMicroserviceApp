@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace AuthorizationMicroservice.Services.Models
+namespace AuthorizationMicroservice.Services.Models.Service
 {
     public class RoleModel : BaseModel
     {

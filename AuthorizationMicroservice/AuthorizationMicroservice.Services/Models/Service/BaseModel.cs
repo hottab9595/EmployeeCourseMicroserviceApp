@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AuthorizationMicroservice.Services.Models
+namespace AuthorizationMicroservice.Services.Models.Service
 {
     public abstract class BaseModel
     {

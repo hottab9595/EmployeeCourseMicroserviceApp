@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using AuthorizationMicroservice.Api.Models;
 using AuthorizationMicroservice.Services.Interfaces;
 using AuthorizationMicroservice.Services.Models;
+using AuthorizationMicroservice.Services.Models.Service;
+using AutoMapper;
 
 namespace AuthorizationMicroservice.Api.Controllers
 {
@@ -9,27 +13,25 @@ namespace AuthorizationMicroservice.Api.Controllers
     [Route("api/Authorization")]
     public class AuthotizationController : Controller
     {
-        public AuthotizationController(IAuthorizationService authorizationService)
+        public AuthotizationController(IAuthorizationService authorizationService, IMapper mapper)
         {
             this.authorizationService = authorizationService;
+            this.mapper = mapper;
         }
 
         private IAuthorizationService authorizationService;
+        private IMapper mapper;
 
-        [HttpGet("{id:int}")]
-        public IEnumerable<BaseModel> GetLogMessage(int id)
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterModel registerModel)
         {
-            switch (id)
-            {
-                case 1:
-                    return authorizationService.GetAllUserModel();
-                case 2:
-                    return authorizationService.GetAllRoleModel();
-                case 3:
-                    return authorizationService.GetAllUserRoleModel();
-                default:
-                    return authorizationService.GetAllUserRoleModel();
-            }
+            return Ok(mapper.Map<RegisterModel>(await authorizationService.RegisterNewUserAsync(mapper.Map<UserModel>(registerModel))));
+        }
+
+        [HttpPost("Authorize")]
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
+        {
+            return Ok(mapper.Map<LoginModel>(authorizationService.Authorize(mapper.Map<UserModel>(loginModel))));
         }
     }
 }
