@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Common.RabbitMQ.Core.Common;
 using Common.RabbitMQ.Interfaces;
 using Common.RabbitMQ.Models.Fanout;
@@ -17,6 +18,8 @@ namespace Common.RabbitMQ.Core.Fanout.Publishing
         public void SendMessage(T messageModel)
         {
             channel.ExchangeDeclare(exchange: rabbitMqConfigurationModel.Exchange, type: ExchangeType.Fanout);
+
+            
 
             var message = JsonConvert.SerializeObject(messageModel);
             var body = Encoding.UTF8.GetBytes(message);

@@ -1,10 +1,15 @@
 using AutoMapper;
+using Common.RabbitMQ.Core.Fanout.Consumer;
+using Common.RabbitMQ.Core.Fanout.Publishing;
+using Common.RabbitMQ.Interfaces;
+using Common.RabbitMQ.Models.Fanout;
 using EmployeeMicroservice.Db;
 using LogMicroservice.Db.Core;
 using LogMicroservice.Db.Interfaces;
 using LogMicroservice.Sevices;
 using LogMicroservice.Sevices.Core;
 using LogMicroservice.Sevices.Interfaces;
+using LogMicroservice.Sevices.Models.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +40,16 @@ namespace LogMicroservice.Api
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUnitOfWork, ContextUnitOfWork>();
 
-
             services.AddScoped<ILogService, LogService>();
 
+            var lol = Configuration.GetSection("RabbitMqLog");
+            services.Configure<RabbitMqFanoutConfigurationModel>(Configuration.GetSection("RabbitMqLog"));
+            services.AddSingleton<IRabbitMqSender<RabbitMqLogPublishModel>, RabbitMqFanoutSender<RabbitMqLogPublishModel>>();
+
+            services.AddHostedService<RabbitMqFanoutConsumer>();
+            
+
+      
             services.AddSingleton(new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());

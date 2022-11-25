@@ -2,7 +2,7 @@
 
 namespace Common.RabbitMQ.Models.Fanout
 {
-    public class PublishFanoutModel : PublishModel
+    public abstract class PublishFanoutModel : PublishModel
     {
         
     }

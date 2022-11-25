@@ -5,6 +5,7 @@ using AuthorizationMicroservice.Services.Core;
 using AuthorizationMicroservice.Services.Interfaces;
 using AuthorizationMicroservice.Services.Models.RabbitMQ;
 using AutoMapper;
+using Common.Middleware;
 using Common.RabbitMQ.Core.Fanout.Consumer;
 using Common.RabbitMQ.Core.Fanout.Publishing;
 using Common.RabbitMQ.Interfaces;
@@ -41,8 +42,8 @@ namespace AuthorizationMicroservice.Api
             
             services.AddScoped<IAuthorizationService, AuthorizationService>();
 
-            services.AddHostedService<RabbitMqFanoutConsumer>();
             services.Configure<RabbitMqFanoutConfigurationModel>(Configuration.GetSection("RabbitMq"));
+
             services.AddSingleton<IRabbitMqSender<RabbitMqAuthorizePublishModel>, RabbitMqFanoutSender<RabbitMqAuthorizePublishModel>>();
 
             services.AddSingleton(new MapperConfiguration(mc =>
@@ -65,6 +66,7 @@ namespace AuthorizationMicroservice.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthorization();
 

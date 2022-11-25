@@ -27,11 +27,11 @@ namespace Common.RabbitMQ.Core.Fanout.Consumer
                                  routingKey: String.Empty);
 
             var consumer = new EventingBasicConsumer(channel);
-
+            string message;
             consumer.Received += (sender, e) =>
             {
                 ReadOnlyMemory<byte> body = e.Body;
-                string message = Encoding.UTF8.GetString(body.ToArray());
+                message = Encoding.UTF8.GetString(body.ToArray());
             };
 
             consumer.Shutdown += base.OnConsumerShutdown;

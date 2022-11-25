@@ -26,11 +26,16 @@ namespace AuthorizationMicroservice.Services.Core
         public async Task<UserModel> RegisterNewUserAsync(UserModel userModel)
         {
             User newUser = mapper.Map<User>(userModel);
-            db.Users.Add(newUser);
 
-            await db.SaveAsync();
+            if (db.Users.FindBy(x => x.Login == userModel.Login) == null)
+            {
+                db.Users.Add(newUser);
 
-            return mapper.Map<UserModel>(db.Users.Get(newUser.Id));
+                await db.SaveAsync();
+                return mapper.Map<UserModel>(db.Users.Get(newUser.Id));
+            }
+
+            return null;
         }
 
         public UserModel Authorize(UserModel userModel)
@@ -39,12 +44,8 @@ namespace AuthorizationMicroservice.Services.Core
             {
                 Login = userModel.Login
             };
-
-            for (int i = 0; i < 3; i++)
-            {
-                Thread.Sleep(1000);
-                rabbitMqSender.SendMessage(authorizePublishModel);
-            }
+            
+            rabbitMqSender.SendMessage(authorizePublishModel);
 
             return mapper.Map<UserModel>(db.Users.FindBy(x => x.Login == userModel.Login && x.Password == userModel.Password)
                 .FirstOrDefault());
